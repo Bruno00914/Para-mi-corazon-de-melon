@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mi Carta para Ti</title>
+  <style>
+    /* Fuente moderna y limpia */
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #ffe6e6;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      color: #ff66b2;
+      font-size: 32px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    .container {
+      margin: 20px;
+      padding: 35px;
+      background: #ffffff;
+      border-radius: 20px;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(255, 102, 178, 0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 102, 178, 0.3);
+    }
+
+    .letter-instruction {
+      font-size: 18px;
+      color: #ff66b2;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .letter-content {
+      display: none;
+      text-align: left;
+      color: #444;
+      font-size: 17px;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .letter-content p {
+      margin: 0 0 15px 0;
+    }
+
+    .signature {
+      margin-top: 30px;
+      font-weight: 700;
+      font-size: 19px;
+      color: #ff3399;
+      text-align: right;
+    }
+
+    /* Corazones flotantes */
+    .corazon {
+      position: fixed;
+      bottom: -50px;
+      width: 25px;
+      height: 25px;
+      fill: #ff4d6d;
+      opacity: 0.6;
+      animation: floatUp linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Para mi corazón de melón :D</h1>
+
+  <div class="container" onclick="mostrarCarta()" role="button" tabindex="0">
+    <div class="letter-instruction">Haz clic aquí para abrir la carta 💌</div>
+    
+    <div class="letter-content" id="letterContent">
+      <p>Quiero tomarme el tiempo para darte las gracias por todo lo que eres y todo lo que significas para mí. Aprecio muchísimo tu paciencia, esa que me das aun cuando no soy perfecto y tengo días complicados. Gracias por entenderme, por no rendirte ante lo complicado que soy y por quedarte a mi lado.</p>
+
+      <p>Tu apoyo ha sido un impulso que me hace mejorar cada día más y querer ser un mejor chico para ti, porque el amor que siento por ti es profundo y verdadero. Sé que no siempre expreso lo mucho que valoro que estés cerca mía, pero cada gesto tuyo me vuelve loco, porque así de enamorado estoy de ti, locamente.</p>
+
+      <p>Gracias por ser ese refugio que siempre quise, ese en el que siempre puedo contar, por escucharme y quererme con tanta sinceridad. Espero que sigamos descubriendo cosas nuevas y maravillosas en nuestro camino, disfrutando de cada momento, de cada risa y hasta de cada problema que tengamos, porque sé que vales la pena.</p>
+
+      <p>Eres muy especial para mí, Ale, y siempre lo serás, mucho más de lo que te imagines. No dudes nunca del amor que tengo por ti.</p>
+
+      <div class="signature">Con mucho cariño,<br>De tu corazón de melón. 💗</div>
+    </div>
+  </div>
+
+  <script>
+    function mostrarCarta() {
+      const content = document.getElementById('letterContent');
+      const instruction = document.querySelector('.letter-instruction');
+      if (content.style.display === 'block') return;
+      
+      content.style.display = 'block';
+      instruction.style.display = 'none';
+    }
+
+    // Función para crear corazones aleatorios
+    function crearCorazones() {
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        heart.setAttribute("viewBox", "0 0 24 24");
+        heart.classList.add("corazon");
+        heart.innerHTML = '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />';
+        
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        heart.style.animationDelay = (Math.random() * 5) + "s";
+        heart.style.width = (Math.random() * 20 + 15) + "px";
+        
+        document.body.appendChild(heart);
+      }
+    }
+
+    crearCorazones();
+
+    // Soporte para teclado
+    document.querySelector('.container').addEventListener('keypress', (e) => {
+      if(e.key === 'Enter') mostrarCarta();
+    });
+  </script>
+</body>
+</html>
