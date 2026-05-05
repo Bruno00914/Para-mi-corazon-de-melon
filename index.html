@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mi Carta para Ti</title>
   <style>
-    /* Fuente moderna y limpia */
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background-color: #ffe6e6;
@@ -74,7 +73,6 @@
       text-align: right;
     }
 
-    /* Corazones flotantes */
     .corazon {
       position: fixed;
       bottom: -50px;
@@ -86,11 +84,45 @@
       z-index: 1;
     }
 
+    .flor {
+      position: fixed;
+      bottom: -40px;
+      font-size: 28px;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: subirFlor linear forwards;
+      z-index: 2;
+    }
+
     @keyframes floatUp {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.8; }
-      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes subirFlor {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -100,13 +132,13 @@
 
   <div class="container" onclick="mostrarCarta()" role="button" tabindex="0">
     <div class="letter-instruction">Haz clic aquí para abrir la carta 💌</div>
-    
+
     <div class="letter-content" id="letterContent">
       <p>Quiero tomarme el tiempo para darte las gracias por todo lo que eres y todo lo que significas para mí. Aprecio muchísimo tu paciencia, esa que me das aun cuando no soy perfecto y tengo días complicados. Gracias por entenderme, por no rendirte ante lo complicado que soy y por quedarte a mi lado.</p>
 
       <p>Tu apoyo ha sido un impulso que me hace mejorar cada día más y querer ser un mejor chico para ti, porque el amor que siento por ti es profundo y sincero. Sé que no siempre expreso lo mucho que valoro que estés cerca mía, pero cada gesto tuyo me vuelve loco, porque así de enamorado estoy de ti.</p>
 
-       <p>Sinceramente, a tu lado he vuelto a ser otro, y espero que sea así por largo tiempo, porque estoy dispuesto a darlo todo por ti, ahora y siempre. No solo por lo que siento por ti, sino también por lo que significas para mí y por todo lo lindo que representas en mi vida, porque ahora tú eres mi todo.</p>
+      <p>Sinceramente, a tu lado he vuelto a ser otro, y espero que sea así por largo tiempo, porque estoy dispuesto a darlo todo por ti, ahora y siempre. No solo por lo que siento por ti, sino también por lo que significas para mí y por todo lo lindo que representas en mi vida, porque ahora tú eres mi todo.</p>
 
       <p>Eres muy especial para mí, Kenya, y siempre lo serás, mucho más de lo que te imagines. No dudes nunca del amor que tengo por ti.</p>
 
@@ -118,35 +150,58 @@
     function mostrarCarta() {
       const content = document.getElementById('letterContent');
       const instruction = document.querySelector('.letter-instruction');
+
       if (content.style.display === 'block') return;
-      
+
       content.style.display = 'block';
       instruction.style.display = 'none';
+
+      crearFlores();
     }
 
-    // Función para crear corazones aleatorios
     function crearCorazones() {
       for (let i = 0; i < 15; i++) {
         const heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         heart.setAttribute("viewBox", "0 0 24 24");
         heart.classList.add("corazon");
         heart.innerHTML = '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />';
-        
+
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
         heart.style.animationDelay = (Math.random() * 5) + "s";
         heart.style.width = (Math.random() * 20 + 15) + "px";
-        
+
         document.body.appendChild(heart);
+      }
+    }
+
+    function crearFlores() {
+      const flores = ['🌸', '🌷', '🌺', '💮'];
+
+      for (let i = 0; i < 20; i++) {
+        const flor = document.createElement('div');
+        flor.classList.add('flor');
+        flor.textContent = flores[Math.floor(Math.random() * flores.length)];
+
+        flor.style.left = Math.random() * 100 + "vw";
+        flor.style.animationDuration = (Math.random() * 3 + 4) + "s";
+        flor.style.animationDelay = (Math.random() * 0.8) + "s";
+        flor.style.fontSize = (Math.random() * 16 + 20) + "px";
+
+        document.body.appendChild(flor);
+
+        setTimeout(() => {
+          flor.remove();
+        }, 7000);
       }
     }
 
     crearCorazones();
 
-    // Soporte para teclado
     document.querySelector('.container').addEventListener('keypress', (e) => {
-      if(e.key === 'Enter') mostrarCarta();
+      if (e.key === 'Enter') mostrarCarta();
     });
   </script>
+
 </body>
 </html>
